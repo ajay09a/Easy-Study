@@ -1,0 +1,971 @@
+#:import Factory kivy.factory.Factory
+
+<MyPopup@Popup>
+    auto_dismiss: True
+    title: 'More'
+    size_hint: 0.6, 0.6
+    pos_hint: {'x': 0.3, 'top': 0.715}
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'Chat'
+            on_release: Factory.Chatting().open()
+        Button:
+            text: 'Screen Share'
+            on_press: app.start_sharing()
+        Button:
+            text: 'Report a Problem'
+            on_release: Factory.Problem().open()
+        Button:
+            text: 'Report Abuse'
+            on_release: Factory.Abuse().open()
+        Button:
+            text: 'Help'
+            on_release: Factory.Help().open()
+        Button:
+            text: 'Setting'
+            on_release: Factory.Setting().open()
+        #Button:
+        #    text: 'close'
+        #    on_release: root.dismiss()
+
+
+<Chatting@Popup>
+    title: 'Chat'
+    size_hint: 0.6, 0.8
+    pos_hint: {'x': 0.4, 'top': 0.9}
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            cols : 1
+            Label:
+                id: meet_chat
+                text: ''
+        GridLayout:
+            cols: 2
+            size_hint: (1, .1)
+            TextInput:
+                id: meet_text
+                hint_text: 'Type a message'
+            Button:
+                size_hint: (.3, .1)
+                text: 'send'
+                on_press: app.meet_send()
+
+
+<Problem@Popup>
+    title: 'Report a Problem'
+    size_hint: 0.6, 0.4
+    pos_hint: {'x': 0.2, 'top': 0.7}
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text_size: root.width*0.8, None
+            size: self.texture_size
+            text: 'If there was a problem with your call, Easy-Study needs system information to understand what went wrong. Allow Easy-Study to collect information for this call?'
+        GridLayout:
+            cols: 2
+            size_hint: (1, .22)
+            Button:
+                text: 'Allow'
+            Button:
+                text: 'Deny'
+                on_release: root.dismiss()
+
+<Abuse@Popup>
+    title: 'Report Abuse'
+    size_hint: 0.6, 0.5
+    pos_hint: {'x': 0.2, 'top': 0.7}
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text_size: root.width*0.8, None
+            size: self.texture_size
+            text: "This call will be reported as abuse. Clicking 'Report' will send system information from this session to Easy-Study for review."
+        GridLayout:
+            cols: 1
+            size_hint: (1, .6)
+            TextInput:
+                hint_text: 'Full Name of abuser*'
+            TextInput:
+                hint_text: 'Describe your issue*'
+            Label:
+        GridLayout:
+            cols: 2
+            size_hint: (1, .25)
+            Button:
+                text: 'Report'
+            Button:
+                text: 'Deny'
+                on_release: root.dismiss()
+
+<Help@Popup>
+    title: 'Help'
+    size_hint: 0.6, 0.4
+    pos_hint: {'x': 0.2, 'top': 0.7}
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            cols: 1
+            size_hint: (1, .4)
+            Button:
+                text: 'Camera not working'
+            Button:
+                text: 'Mic not working'
+            Button:
+                text: 'Troubling in Screen Share'
+            Button:
+                text: 'Video and Audio quality'
+
+
+<Setting@Popup>
+    title: 'Setting'
+    size_hint: 0.6, 0.24
+    pos_hint: {'x': 0.2, 'top': 0.7}
+    Label:
+        text_size: root.width*0.8, None
+        size: self.texture_size
+        text: 'Coming Soon'
+
+
+
+
+
+<Tab>:
+	# COMMON CONTENT GOES HERE !!
+
+Screen:
+	ScreenManager:
+		id : screen_manager
+		Screen:
+		    name: 'sign_in'
+		    canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+		    AnchorLayout:
+		        anchor_x: 'center'
+		        anchor_y: 'center'
+                GridLayout:
+                    cols: 1
+                    size_hint: (.5, 1)
+                    Image:
+                        source: 'cool.png'
+
+                        # Giving the size of image
+                        size_hint_x: 0.4
+
+                        # allow stretching of image
+                        allow_stretch: True
+                    Label:
+                        size_hint: (1, .3)
+                    Label:
+                        id: ip
+                        text: 'IP Address:'
+                        color: 1, 1, 1, 1
+                        size_hint: (None, None)
+                        size: self.texture_size
+                    TextInput:
+                        id: ips
+                        multiline: False
+                        size_hint: (.1, .2)
+                        background_color: 0, 240, 150, 0.8
+                    Label:
+                        size_hint: (1, .2)
+                    Label:
+                        id: port
+                        text: 'Port Address:'
+                        color: 1, 1, 1, 1
+                        size_hint: (None, None)
+                        size: self.texture_size
+                    TextInput:
+                        id: ports
+                        multiline: False
+                        size_hint: (.1, .2)
+                        background_color: 0, 240, 150, 0.8
+                    Label:
+                        size_hint: (1, .2)
+                    Label:
+                        id: username
+                        text: 'Username:'
+                        color: 1, 1, 1, 1
+                        size_hint: (None, None)
+                        size: self.texture_size
+                    TextInput:
+                        id: user
+                        multiline: False
+                        size_hint: (.1, .2)
+                        background_color: 0, 240, 150, 0.8
+                    Label:
+                        size_hint: (1, .2)
+                    Button:
+                        text: 'Log In'
+                        color: 0, 0, 0, 1
+                        size_hint: (.3, .3)
+                        background_color: 255, 255, 255
+                        on_press: app.click(); app.clicked(); app.change_screen('info'); app.change_text()
+                    Label:
+
+        Screen:
+            name: 'info'
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            GridLayout:
+                size: root.size
+                cols: 1
+                Image:
+                    source: 'Gaming.png'
+
+                    # Giving the size of image
+                    size_hint_x: 0.4
+
+                    # allow stretching of image
+                    allow_stretch: True
+                Label:
+                    id: information
+                    text: 'Attempting to join port and ip as ajay'
+                    font_size: self.width/20
+                Label:
+                    text: 'Welcome to the official Easy-Study app.'
+                    font_size: '10'
+                    size_hint: (1, .2)
+                Button:
+                    text: "LET'S DIVE IN"
+                    color: 0, 0, 0, 1
+                    size_hint: (.3, .3)
+                    background_color: 255, 255, 255
+                    on_press: app.change_screen('home screen')
+
+		Screen:
+			name: 'home screen'
+			BoxLayout:
+				orientation: 'vertical'
+				MDToolbar:
+					title: 'Easy-Study'
+					pos_hint: {'top': True}
+					#left_action_items : [['menu', lambda x: print(x)]]
+					right_action_items : [['magnify', lambda x: print(x)], ['dots-vertical', lambda x : app.show_theme_picker()]]
+				MDTabs:
+					Tab:
+						# INDIVIDUAL TABS CONTENT GOES HERE !!
+						text: 'CHATS'
+						ScrollView:
+							MDList:
+								TwoLineAvatarListItem:
+									text: 'B.Tech 4th year'
+									secondary_text: 'online 20 mins ago.'
+									on_press:
+										app.change_screen('chat screen', title = self.text);
+										app.start_chat()
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'B.Tech 3rd year'
+									secondary_text: 'smash !'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'B.Com 1st year'
+									secondary_text: 'online'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'B.A 1st year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarIconListItem:
+									text: 'B.Tech 3rd year'
+									secondary_text: 'busy in studies'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									IconLeftWidget:
+										icon: "account-group-outline"
+								TwoLineAvatarListItem:
+									text: 'M.Tech 1st year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'B.Sc 2nd year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarIconListItem:
+									text: 'B.Tech 3rd year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									IconLeftWidget:
+										icon : "account-group-outline"
+								TwoLineAvatarListItem:
+									text: 'B.Sc 3rd year'
+									secondary_text: 'online'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'MCA 1st year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'B.A 3rd year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'M.Com 2nd year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'M.com 1st year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'B.Com 3rd year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'M.Tech 2nd year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'M.A 2nd year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text: 'M.Sc 2nd year'
+									secondary_text: 'Some random msg !!'
+									on_press:
+										app.change_screen('chat screen', title = self.text)
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+						FloatLayout:
+							MDFloatingActionButton:
+								md_bg_color : (0.145, 0.827, 0.4, 1)
+								text_color : (1, 1, 1, 1)
+								icon : 'message-reply-text'
+								size : 45, 45
+								pos : root.width - 1.5*self.width,  root.y + self.height//2
+								on_press:
+									app.change_screen('select contact')
+					Tab:
+						# INDIVIDUAL TABS CONTENT GOES HERE !!
+						text: 'STATUS'
+						ScrollView:
+							MDList:
+								TwoLineAvatarListItem:
+									text : 'My Status'
+									secondary_text : 'Tap to add status update'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								OneLineListItem:
+									text : 'Recent updates'
+								TwoLineAvatarListItem:
+									text : 'Deepak'
+									secondary_text : 'Today, 10:31 am'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text : 'Aayushi'
+									secondary_text : 'Today, 09:54 am'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text : 'Ankit'
+									secondary_text : 'Today, 09:36 am'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text : 'Sachin'
+									secondary_text : 'Today, 09:12 am'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text : 'Bhumika'
+									secondary_text : 'Today, 09:10 am'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								OneLineListItem:
+									text : 'Viewed updates'
+								TwoLineAvatarListItem:
+									text : 'Tannu'
+									secondary_text : 'Yesterday, 10:31 pm'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text : 'Aryan'
+									secondary_text : 'Yesterday, 10:20 pm'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text : 'krish'
+									secondary_text : 'Yesterday, 07:50 pm'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text : 'Mohit'
+									secondary_text : 'Yesterday, 07:34 pm'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text : 'Neha'
+									secondary_text : 'Yesterday, 06:39 pm'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+								TwoLineAvatarListItem:
+									text : 'Bhanu'
+									secondary_text : 'Yesterday, 4:20 pm'
+									ImageLeftWidget:
+										source: "data/logo/kivy-icon-256.png"
+
+						FloatLayout:
+							MDFloatingActionButton:
+								md_bg_color : (0.145, 0.827, 0.4, 1)
+								text_color : (1, 1, 1, 1)
+								icon : 'camera'
+								size : 50, 50
+								pos : root.width - 1.5*self.width, root.y + self.height//2
+								on_press:
+									print('click picture')
+									#app.change_screen('camera')
+							MDFloatingActionButton:
+								md_bg_color : (0.925, 0.898, 0.866, 1)
+								text_color : app.theme_cls.primary_dark
+								icon : 'pen'
+								size: 43.5, 43.5
+								pos : root.width - 1.65*self.width, root.y + 4.35*self.height//2
+								on_press:
+									#print('update status')
+									app.change_screen('update status')
+					Tab:
+						# INDIVIDUAL TABS CONTENT GOES HERE !!
+						text: 'CALLS'
+						ScrollView:
+							MDList:
+								TwoLineAvatarIconListItem:
+									text : 'Bhanu'
+									secondary_text : '30 March,8:53 PM'
+									IconLeftWidget:
+										icon : "instagram"
+									IconRightWidget:
+										icon : 'phone'
+										theme_text_color : 'Custom'
+										text_color : (18/255, 140/255, 126/255, 1)
+								TwoLineAvatarIconListItem:
+									text : 'Ankit'
+									secondary_text : '30 March,8:53 PM'
+									IconLeftWidget:
+										icon : "emoticon-excited-outline"
+									IconRightWidget:
+										icon : 'phone'
+										theme_text_color : 'Custom'
+										text_color : (18/255, 140/255, 126/255, 1)
+								TwoLineAvatarIconListItem:
+									text : 'Bhumika'
+									secondary_text : '30 March,8:53 PM'
+									IconLeftWidget:
+										icon : 'emoticon-cool-outline'
+									IconRightWidget:
+										icon : 'phone'
+										theme_text_color : 'Custom'
+										text_color : (18/255, 140/255, 126/255, 1)
+								TwoLineAvatarIconListItem:
+									text : 'Tanya'
+									secondary_text : '30 March,8:53 PM'
+									IconLeftWidget:
+										icon : 'emoticon-excited-outline'
+									IconRightWidget:
+										icon : 'phone'
+										theme_text_color : 'Custom'
+										text_color : (18/255, 140/255, 126/255, 1)
+								TwoLineAvatarIconListItem:
+									text : 'Deepak'
+									secondary_text : '30 March,8:53 PM'
+									IconLeftWidget:
+										icon : 'emoticon-neutral-outline'
+									IconRightWidget:
+										icon : 'phone'
+										theme_text_color : 'Custom'
+										text_color : (18/255, 140/255, 126/255, 1)
+								TwoLineAvatarIconListItem:
+									text : 'Kavya'
+									secondary_text : '30 March,8:53 PM'
+									IconLeftWidget:
+										icon : 'emoticon-happy-outline'
+									IconRightWidget:
+										icon : 'phone'
+										theme_text_color : 'Custom'
+										text_color : (18/255, 140/255, 126/255, 1)
+								TwoLineAvatarIconListItem:
+									text : 'Mahi'
+									secondary_text : '30 March,8:53 PM'
+									IconLeftWidget:
+										icon : 'emoticon-neutral-outline'
+									IconRightWidget:
+										icon : 'phone'
+										theme_text_color : 'Custom'
+										text_color : (18/255, 140/255, 126/255, 1)
+								TwoLineAvatarIconListItem:
+									text : 'Neha'
+									secondary_text : '30 March,8:53 PM'
+									IconLeftWidget:
+										icon : 'emoticon-happy-outline'
+									IconRightWidget:
+										icon : 'phone'
+										theme_text_color : 'Custom'
+										text_color : (18/255, 140/255, 126/255, 1)
+								TwoLineAvatarIconListItem:
+									text : 'Ankita'
+									secondary_text : '30 March,8:53 PM'
+									IconLeftWidget:
+										icon : 'emoticon-neutral-outline'
+									IconRightWidget:
+										icon : 'phone'
+										theme_text_color : 'Custom'
+										text_color : (18/255, 140/255, 126/255, 1)
+								TwoLineAvatarIconListItem:
+									text : ''
+						FloatLayout:
+							MDFloatingActionButton:
+								md_bg_color : (0.145, 0.827, 0.4, 1)
+								text_color : (1, 1, 1, 1)
+								icon : 'call-made'
+								size : 45, 45
+								pos : root.width - 1.5*self.width, root.y + self.height//2
+								on_press:
+									app.change_screen('select contact2')
+
+		Screen:
+			name : 'update status'
+			FloatLayout:
+				canvas:
+					Color:
+						rgb: (0.4, 0.2, 0.5)
+					Rectangle:
+						size : self.size
+						pos : self.pos
+				MDIconButton:
+					icon : 'keyboard-backspace'
+					md_bg_color : (0.4, 0.2, 0.5, 1)
+					theme_text_color : 'Custom'
+					text_color : (1, 1, 1, 1)
+					size_hint: (None, None)
+					pos_hint : {'top' : True}
+					on_press:
+						app.change_screen('home screen', 'back')
+				MDLabel:
+                    text : 'Type a status'
+                    halign: 'center'
+                    theme_text_color : 'Custom'
+                    text_color : (1, 1, 1, 1)
+                    font_size: '25sp'
+				MDList:
+					OneLineIconListItem:
+						md_bg_color : (0.5, 0.5, 0.8, 1)
+						text : 'Status (Custom)'
+						theme_text_color : 'Custom'
+						text_color : (1, 1, 1, 1)
+						pos_hint: {'bottom': True}
+						IconLeftWidget:
+							icon : 'chevron-right'
+							theme_text_color : 'Custom'
+							text_color : (1, 1, 1, 1)
+				MDIconButton:
+					icon : 'emoticon-excited'
+					md_bg_color : (0.4, 0.2, 0.5, 1)
+					theme_text_color : 'Custom'
+					text_color : (1, 1, 1, 1)
+					#size_hint: (None, None)
+					pos : root.x + self.width, root.y + 0.8*self.height
+				MDIconButton:
+					icon : 'format-text'
+					md_bg_color : (0.4, 0.2, 0.5, 1)
+					theme_text_color : 'Custom'
+					text_color : (1, 1, 1, 1)
+					#size_hint: (None, None)
+					pos : root.x + 2*self.width, root.y + 0.8*self.height
+				MDIconButton:
+					icon : 'palette'
+					md_bg_color : (0.4, 0.2, 0.5, 1)
+					theme_text_color : 'Custom'
+					text_color : (1, 1, 1, 1)
+					#size_hint: (None, None)
+					pos : root.x + 3*self.width, root.y + 0.8*self.height
+
+
+
+
+
+		Screen:
+			name : 'select contact2'
+			BoxLayout:
+				orientation : 'vertical'
+				MDToolbar:
+					id : toolbar2
+					pos_hint : {'top' : True}
+					title : 'Select contact'
+					left_action_items : [['keyboard-backspace', lambda x : app.change_screen('home screen', 'back')]]
+					right_action_items : [['magnify', lambda x : print('search')], ['dots-vertical', lambda x : print('vertical-dots')]]
+				ScrollView:
+					MDList:
+						OneLineAvatarIconListItem:
+							text : 'New group call' # account-multiple
+							IconLeftWidget:
+								icon : 'account-multiple'
+						OneLineAvatarIconListItem:
+							text : 'New contact' # account-plus
+							IconLeftWidget:
+								icon : 'account-plus'
+
+		Screen:
+			name : 'select contact'
+			BoxLayout:
+				orientation: 'vertical'
+				MDToolbar:
+					id : toolbar
+					pos_hint: {'top': True}
+					title: 'Select contact'
+					right_action_items : [['magnify', lambda x : print('search')], ['dots-vertical', lambda x : print(x)]]
+					left_action_items : [['keyboard-backspace', lambda x : app.change_screen('home screen', 'back')]]
+				ScrollView:
+					MDList:
+						OneLineAvatarIconListItem:
+							text : 'New group'
+							IconLeftWidget:
+								icon : 'account-multiple'
+								md_bg_color : (0.145, 0.827, 0.4, 1)
+								size_hint: (1, 1)
+						OneLineAvatarIconListItem:
+							text : 'New contact'
+							IconLeftWidget:
+								icon : 'account-plus'
+								md_bg_color : (0.145, 0.827, 0.4, 1)
+								size_hint: (1, 1)
+						TwoLineAvatarIconListItem:
+							text : 'Aayushi'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman'
+						TwoLineAvatarIconListItem:
+							text : 'Bhumika'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman-outline'
+						TwoLineAvatarIconListItem:
+							text : 'Bhanu'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman'
+						TwoLineAvatarIconListItem:
+							text : 'Neha'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman-outline'
+						TwoLineAvatarIconListItem:
+							text : 'Palak'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman'
+						TwoLineAvatarIconListItem:
+							text : 'Payal'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman-outline'
+						TwoLineAvatarIconListItem:
+							text : 'Sangeeta'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman-outline'
+						TwoLineAvatarIconListItem:
+							text : 'Sukoon'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman'
+						TwoLineAvatarIconListItem:
+							text : 'Tanisha'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman'
+						TwoLineAvatarIconListItem:
+							text : 'Tanya'
+							secondary_text : 'Hey there! I am using WhatsApp.'
+							on_press:
+								app.change_screen('chat screen', title = self.text)
+							IconLeftWidget:
+								icon : 'face-woman-outline'
+
+
+
+
+        Screen:
+            name: 'meet'
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            BoxLayout:
+				orientation: 'vertical'
+                MDToolbar:
+                    title: 'Meet'
+					id: toolbar_video_call
+					pos_hint: {'top': True}
+					text: 'hello'
+                ScrollView:
+                    Camera:
+                        id: camera
+                        resolution: (640, 480)
+                        play: True
+                FloatLayout:
+                    MDFloatingActionButton:
+                        md_bg_color : (0.145, 0.827, 0.4, 1)
+                        text_color : (1, 1, 1, 1)
+                        icon : 'camera'
+                        size : 40, 40
+                        pos : 50, 20
+                        size : 40, 40
+                        on_press: camera.play = not camera.play
+                    MDFloatingActionButton:
+                        md_bg_color : (0.145, 0.827, 0.4, 1)
+                        text_color : (1, 1, 1, 1)
+                        icon : 'microphone'
+                        size : 40, 40
+                        pos : 120, 20
+                        size : 40, 40
+                    MDFloatingActionButton:
+                        md_bg_color : (0.145, 0.827, 0.4, 1)
+                        text_color : (1, 1, 1, 1)
+                        icon : 'phone-hangup'
+                        size : 40, 40
+                        pos : 190, 20
+                        size : 40, 40
+                        on_press: app.change_screen('home screen')
+                    MDFloatingActionButton:
+                        md_bg_color : (0.145, 0.827, 0.4, 1)
+                        text_color : (1, 1, 1, 1)
+                        icon : 'dots-vertical'
+                        size : 40, 40
+                        pos : 260, 20
+                        size : 40, 40
+                        on_release: Factory.MyPopup().open()
+
+
+
+
+
+        Screen:
+            name : 'chat screen'
+            chat_layout: chat_layout
+            id: ChatPage
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            BoxLayout:
+				orientation: 'vertical'
+				MDToolbar:
+					id : toolbar_chat_screen
+					pos_hint: {'top': True}
+					right_action_items : [['video', lambda x : app.change_screen('meet', title = self.text)], ['chart-bell-curve-cumulative', lambda x : app.change_screen('report')], ['dots-vertical', lambda x : print('OPTIONS NOT ACCESSIBLE...')]]
+					left_action_items : [['keyboard-backspace', lambda x : app.change_screen('home screen', curr = 'back')]]
+                GridLayout:
+                    cols : 1
+                    ScrollView:
+                        id: scroll
+                        BoxLayout:
+                            orientation: 'vertical'
+                            id : chat_layout
+                            padding: 15
+                            spacing: 15
+                            size_hint: 1, None
+                            height: self.minimum_height
+                            Label:
+                                text_size: root.width*0.8, None
+                                size: self.texture_size
+                                text: ''
+                                id: chat_history
+                                size_hint: None, None
+                                size: self.texture_size
+                                padding: 10, 10
+                                multiline: True
+                                background_color: 0,0,0,0
+                                background_normal: ""
+                                back_color: 1,0,1,1
+                                border_radius: [6]
+                                canvas.before:
+                                    Color:
+                                        rgba: 0.2,0.6,1,1 #This changes the label colour
+                                    RoundedRectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                        # MDList:
+                        #    TwoLineAvatarListItem:
+                        #        text: 'Hello'
+                        #        secondary_text: 'Welcome to Chat Room'
+                GridLayout:
+                    MDTextFieldRound:
+                        id : new_msg
+                        hint_text : 'Type a message'
+                        size_hint: (1, None)
+                        width: '280dp'
+                        font_size : '16dp'
+                        pos : root.x + self.height, root.y + self.height//2.4
+                        icon_right : 'paperclip'
+                    MDIconButton:
+                        icon : 'send'
+                        #user_font_size: '14sp'
+                        pos : root.width - self.width, 0.1*self.width
+                        on_press : app.send()
+
+
+
+
+
+
+        Screen:
+            name: 'report'
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 0
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            BoxLayout:
+                orientation: 'vertical'
+                MDToolbar:
+                    pos_hint: {'top': True}
+                    title: 'Progress Report'
+                    left_action_items : [['keyboard-backspace', lambda x : app.change_screen('home screen', curr = 'back')]]
+                MDLabel:
+                    text: 'Progress Report'
+                    halign: 'center'
+                    font_style: 'H3'
+                    color: '#5B2160'
+                MDLabel:
+                    text: 'Enter Your previous test marks'
+                    halign: "center"
+                AnchorLayout:
+                    anchor_x: 'center'
+                    anchor_y: 'center'
+                    GridLayout:
+                        cols: 2
+                        size_hint: (.5, 1)
+                        MDLabel:
+                            text: 'Java'
+                            pos_hint: {'center_y':0.75, 'center_x':0.75}
+
+                        MDTextField:
+                            id: input_1
+                            width: 100
+                            size_hint_x: None
+                            pos_hint: {'center_y':0.75, 'center_x':0.7}
+
+                        MDLabel:
+                            text: 'DSA'
+                            pos_hint: {'center_y':0.68, 'center_x':0.75}
+
+                        MDTextField:
+                            id: input_2
+                            width: 100
+                            size_hint_x: None
+                            pos_hint: {'center_y':0.68, 'center_x':0.7}
+
+                        MDLabel:
+                            text: 'OS'
+                            pos_hint: {'center_y':0.61, 'center_x':0.75}
+
+                        MDTextField:
+                            id: input_3
+                            width: 100
+                            size_hint_x: None
+                            pos_hint: {'center_y':0.61, 'center_x':0.7}
+
+                AnchorLayout:
+                    anchor_x: 'center'
+                    MDLabel:
+                        pos_hint: {'center_y':0.2}
+                        halign: 'center'
+                        text: ''
+                        id: output_text_good
+                        theme_text_color: "Custom"
+                        text_color: '#3B8BFF'
+                    MDLabel:
+                        pos_hint: {'center_y':0.2}
+                        halign: 'center'
+                        text: ''
+                        id: output_text_bad
+                        theme_text_color: "Custom"
+                        text_color: '#EF0F0F'
+                AnchorLayout:
+                    anchor_y: 'bottom'
+                    MDLabel:
+                        text: "Copyright © Easy-Study for AI 2022"
+                        font_size: "12sp"
+                        line_height: .85
+                        halign: "center"
+                        color: '##5B2160'
+
+                    MDRaisedButton:
+                        pos_hint: {'center_x':0.5, 'center_y':0.13}
+                        text: 'Predict'
+                        on_press: app.predict()
